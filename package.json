@@ -1,0 +1,23 @@
+{
+  "name": "htmlgenerator-winter2019",
+  "version": "1.0.0",
+  "description": "A web application that allows a user to create, save, update and delete web pages without using HTML.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DTsai-coder/htmlGenerator-winter2019.git"
+  },
+  "author": "Daniella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DTsai-coder/htmlGenerator-winter2019/issues"
+  },
+  "homepage": "https://github.com/DTsai-coder/htmlGenerator-winter2019#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.13"
+  }
+}
