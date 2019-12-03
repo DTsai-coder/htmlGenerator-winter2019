@@ -1,5 +1,10 @@
+// To access the file called auth.js
+const auth = require("./assets/auth.js")
+
 // How to create an Express server
 const express = require("express");
+
+const bodyParser = require("body-parser");
 
 // Run the Express Server
 const app = express();
@@ -19,6 +24,20 @@ const port = 3000;
 http.listen(port); // .listen is a method that tells http what port to listen to.
 
 console.log("Express server is running on port " + port + "!");
+console.log(auth.getDBURL());
 
 // To load the index.html, use code bellow:
+// Routes
 app.use(express.static("client/"));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
+
+app.post("/login", (request, response) => {
+    let requestUsername = request.body.username;
+    let requestPassword = request.body.password;
+
+    console.log(requestUsername, requestPassword);
+
+    response.sendStatus(200);
+});
