@@ -19,3 +19,6 @@ const port = 3000;
 http.listen(port); // .listen is a method that tells http what port to listen to.
 
 console.log("Express server is running on port " + port + "!");
+
+// To load the index.html, use code bellow:
+app.use(express.static("client/"));
