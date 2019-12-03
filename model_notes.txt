@@ -1,0 +1,38 @@
+What data:
+- Projects - Project Schema
+- Credentials - Account Schema
+- Account info - Account Schema
+
+MODEL 
+
+Project Schema
+Save:
+- name
+- array of elements
+- username of owner
+
+
+Account Schema
+All in strings:
+- First name
+- Last name
+- Username
+- Email
+- Password
+
+
+
+Controller (controller controls traffic of data/control the flow of the program in the backend)
+Actions for the Login page:
+- Ability to SIGN-IN 
+- Ability to REGISTER a new account
+
+Actions for Build-Webpage:
+- Ability to SAVE the Project
+- Ability to DOWNLOAD the project
+- Ability to CREATE HTML code
+
+Actions for CP (Control Panel)/Dashboard
+- Ability to LOGOUT
+- Ability to UPDATE Password
+- Ability to CREATE, READ, UPDATE and DELETE (CRUD) for Projects
