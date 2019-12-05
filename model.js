@@ -40,6 +40,7 @@ let accountSchema = new Schema({
 
 let accountModel = new mongoose.model("accounts", accountSchema);
 
+/*
 function checkLogin(username, password){
     let hashedAndSaltedPassword = md5 (password + auth.getSalt());
 
@@ -62,6 +63,29 @@ function checkLogin(username, password){
         }
     }).then(() => {return authenticated;});
 }
+*/
+
+/* Previous attempt
+async function searchDB(searchCriteria){
+    return new Promise((resolve, reject) => {
+        accountModel.find(searchCriteria, (error, results) => {});
+    });
+}
+*/
+
+async function checkLogin(username, password) {
+    let hashedAndSaltedPassword = md5(password + auth.getSalt());
+    console.log(hashedAndSaltedPassword); // Looking for a matching hash from the database (mongoDB Atlas > collections)
+
+    let searchCriteria = {
+        username: username,
+        password: hashedAndSaltedPassword
+    };
+
+    return accountModel.find(searchCriteria).exec();
+
+}
+
 
 function updateAuthentication(value){
     authenticated = value;

@@ -23,7 +23,7 @@ const port = 3000;
 // Tell HTTP to which port to listen to.
 http.listen(port); // .listen is a method that tells http what port to listen to.
 
-console.log("Express server is running on port " + port + "!");
+console.log("Express server running on " + port);
 
 // To load the index.html, use code bellow:
 // Routes
@@ -35,8 +35,13 @@ app.post("/login", (request, response) => {
     let requestUsername = request.body.username;
     let requestPassword = request.body.password;
 
+    console.log(requestPassword); // Password made it to the backend (terminal)
 
-    console.log(model.checkLogin(requestUsername, requestPassword));
+    model.checkLogin(requestUsername, requestPassword).then((results) => {
+        console.log(results);
+        response.sendStatus(200);
+    });
 
-    response.sendStatus(200);
+    // response.sendStatus(200);
 });
+
