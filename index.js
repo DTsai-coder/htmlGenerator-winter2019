@@ -32,15 +32,36 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.post("/login", (request, response) => {
+
+  
+  if (request.body.type === "login"){
+
     let requestUsername = request.body.username;
     let requestPassword = request.body.password;
 
-    console.log(requestPassword); // Password made it to the backend (terminal)
+    // console.log(requestPassword); // Password made it to the backend (terminal)
 
     model.checkLogin(requestUsername, requestPassword).then((results) => {
         console.log(results);
-        response.sendStatus(200);
+        if(results.length === 1){
+            response.sendStatus(200);
+        }else{
+            response.sendStatus(404);
+        }
     });
+  }else if(request.body.type === "registration"){
+      model.createAccount(request.body).then((results) => {
+          if(results === null){
+              response.sendStatus(500);
+          }else{
+              response.sendStatus(200);
+          }
+          //response.sendStatus(200); // This response is used to send back to front-end.
+      }).catch((error) => {
+          console.log(error);
+          response.sendStatus(500);
+      });
+  }
 
     // response.sendStatus(200);
 });

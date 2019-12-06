@@ -3,7 +3,6 @@ const auth = require("./assets/auth.js");
 
 const mongoose = require("mongoose");
 const md5 = require("md5"); // To hash the incoming hash. Hash is a unique finger print for a file as it is.
-let authenticated = -1;
 
 const options ={
     useNewUrlParser: true,
@@ -83,14 +82,36 @@ async function checkLogin(username, password) {
     };
 
     return accountModel.find(searchCriteria).exec();
-
 }
 
+async function createAccount(newAccount){
 
-function updateAuthentication(value){
-    authenticated = value;
+    let returnValue = null;
+
+    checkLogin(newAccount.username, newAccount.password).then((results) => {
+
+        console.log(results);
+        if(results.length >= 1){
+        }else {
+            let account = new accountModel({
+                fname: newAccount.fname,
+                lname: newAccount.lname,
+                username: newAccount.username,
+                email: newAccount.email,
+                password: md5(newAccount.password + auth.getSalt()),
+                creationDate: new Date(),
+                lastLogin: new Date(),
+                projectID: Math.floor((Math.random() * 1000000) + 1)
+            });
+
+            returnValue = account.save();
+        }
+    });
+    return returnValue;
+
 }
 
 module.exports = {
-    checkLogin: checkLogin
+    checkLogin: checkLogin,
+    createAccount: createAccount
 }
