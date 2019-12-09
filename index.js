@@ -43,23 +43,24 @@ app.post("/login", (request, response) => {
 
     model.checkLogin(requestUsername, requestPassword).then((results) => {
         console.log(results);
+        console.log(requestUsername + " Inside of Promise");
         if(results.length === 1){
-            response.sendStatus(200);
+            response.send({success: 0});
         }else{
-            response.sendStatus(404);
+            response.send({success: 1});
         }
     });
   }else if(request.body.type === "registration"){
       model.createAccount(request.body).then((results) => {
           if(results === null){
-              response.sendStatus(500);
+              response.send({success: 2});
           }else{
-              response.sendStatus(200);
+              response.send({success: 3});
           }
           //response.sendStatus(200); // This response is used to send back to front-end.
       }).catch((error) => {
           console.log(error);
-          response.sendStatus(500);
+          response.send({success: 4});
       });
   }
 

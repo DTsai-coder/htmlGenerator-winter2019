@@ -86,12 +86,13 @@ async function checkLogin(username, password) {
 
 async function createAccount(newAccount){
 
-    let returnValue = null;
+    // let returnValue = null;
 
-    checkLogin(newAccount.username, newAccount.password).then((results) => {
+    // FIX
+    return checkLogin(newAccount.username, newAccount.password).then((results) => {
 
-        console.log(results);
         if(results.length >= 1){
+            return null;
         }else {
             let account = new accountModel({
                 fname: newAccount.fname,
@@ -104,10 +105,14 @@ async function createAccount(newAccount){
                 projectID: Math.floor((Math.random() * 1000000) + 1)
             });
 
-            returnValue = account.save();
+            // FIX
+            let temp = account.save();
+            console.log(temp);
+            return temp;
         }
     });
-    return returnValue;
+    // console.log(returnValue);
+    // return returnValue;
 
 }
 

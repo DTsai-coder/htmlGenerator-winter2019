@@ -19,7 +19,7 @@
 <body>
 
     <h1>Login to Your Account</h1>
-    <p id="error"></p>
+    <p id="login-message"></p>
     <form id="login">
         <label for="username">Username:</label><br/>
         <input type="text" id="username" name="username"/><br/>
@@ -31,7 +31,7 @@
     <button id="submitLogin">Login</button>
 
     <h1>Register A New Account</h1>
-    <p id="register-error"></p>
+    <p id="register-message"></p>
     <form id=register>
         <label for="fname">First Name:</label><br/>
         <input type="text" id ="fname" name="fname"/><br/>
@@ -46,7 +46,7 @@
     </form>
 
     <input type="reset" form="register"/>
-    <button id="submitRegister">Login</button>
+    <button id="submitRegister">Register</button>
 
     <script>
         $(document).ready(() => {
@@ -74,14 +74,19 @@
                 console.log(loginData.password);
 
                 $.post("http://localhost:3000/login", loginData, (data) => {
-                    console.log("The server has responded!");
+                    if (data.success === 0){
+                        $("#login-message").text("You have successfully logged in!");
+                        setInterval(() => {window.location.href = "http://localhost:3000/profile.html"},1000);
+                    }else if(data.success === 1){
+                        $("#login-message").text("Sorry, wrong username or password! Try Again.");
+                    }
                 });
 
             });
-        });
+        
          
-        $("#submitRegister").click(() =>{
-            const registerData = {
+            $("#submitRegister").click(() =>{
+                const registerData = {
                 type: "registration",
                 fname: $("#fname").val(),
                 lname: $("#lname").val(),
@@ -91,9 +96,18 @@
             };
 
             $.post("/login", registerData, (data) => {
-                console.log("The server has responded");
+                if (data.success === 2){
+                    $("#register-message").text("You have successfully registered an account! Log in today!");
+                }else if(data.success === 3){
+                    $("register-message").text("Sorry, username already taken!");
+                }else if (data.success === 4){
+                    $("register-message" === 4).text("Sorry, something went wrong. Try again later");
+                }
+                
             });
         });
+
+    });
 
     </script>
 
